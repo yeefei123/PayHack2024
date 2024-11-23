@@ -1,4 +1,5 @@
 import { Card } from "@rneui/themed";
+import { useNavigation } from "expo-router";
 import React, { useState } from "react";
 import {
   Alert,
@@ -17,6 +18,7 @@ export default function HomeScreen() {
   const [text, onChangeText] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [open, setOpen] = useState(false);
+  const navigation = useNavigation();
   const [categories, setCategories] = useState([
     { label: "Low Interest Loans", value: "low-interest" },
     { label: "Quick Approval Loans", value: "quick-approval" },
@@ -30,6 +32,10 @@ export default function HomeScreen() {
       return;
     }
     Alert.alert("Search Results");
+  };
+
+  const handleNavigateToBank = (cardTitle) => {
+    navigation.navigate("bank", { title: cardTitle });
   };
 
   return (
@@ -107,12 +113,14 @@ export default function HomeScreen() {
           </View>
 
           {/* Loan Card */}
-          <Card containerStyle={styles.card}>
-            <Card.Title style={styles.cardTitle}>Public Bank</Card.Title>
-            <Card.Divider />
-            <Text style={styles.cardText}>Loan Value: RM 100,000</Text>
-            <Text style={styles.cardText}>Interest Rate: 3.15%</Text>
-          </Card>
+          <Pressable onPress={() => handleNavigateToBank("Public Bank")}>
+            <Card containerStyle={styles.card}>
+              <Card.Title style={styles.cardTitle}>Public Bank</Card.Title>
+              <Card.Divider />
+              <Text style={styles.cardText}>Loan Value: RM 100,000</Text>
+              <Text style={styles.cardText}>Interest Rate: 3.15%</Text>
+            </Card>
+          </Pressable>
         </ScrollView>
       </SafeAreaView>
     </SafeAreaProvider>
