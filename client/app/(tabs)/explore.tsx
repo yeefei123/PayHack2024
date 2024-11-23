@@ -1,4 +1,5 @@
 import { useColorScheme } from "@/hooks/useColorScheme";
+import { useNavigation } from "expo-router";
 import React from "react";
 import {
   Image,
@@ -13,9 +14,10 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function ProfileScreen() {
   const colorScheme = useColorScheme();
   const isDarkMode = colorScheme === "dark";
+  const navigation = useNavigation();
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       <ScrollView contentContainerStyle={styles.container}>
         <View
           style={[
@@ -29,25 +31,42 @@ export default function ProfileScreen() {
             Alex
           </Text>
         </View>
+
         <View style={styles.body}>
           <Image
             source={require("../../assets/images/logo.jpg")}
             style={styles.profilePic}
           />
           <View style={styles.bodyContent}>
-            <Text style={styles.info}>Account Number: 7773240</Text>
-            <Text style={styles.info}>Email: alex@example.com</Text>
-            <Text style={styles.info}>Phone: +60 12-345 6789</Text>
+            <Text
+              style={[styles.info, { color: isDarkMode ? "white" : "#333" }]}
+            >
+              Account Number: 7773240
+            </Text>
+            <Text
+              style={[styles.info, { color: isDarkMode ? "white" : "#333" }]}
+            >
+              Email: alex@example.com
+            </Text>
+            <Text
+              style={[styles.info, { color: isDarkMode ? "white" : "#333" }]}
+            >
+              Phone: +60 12-345 6789
+            </Text>
           </View>
+
           <View style={styles.buttonContainer}>
             <TouchableOpacity style={styles.button}>
               <Text style={styles.buttonText}>Edit Profile</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>Settings</Text>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => navigation.navigate("repayment")}
+            >
+              <Text style={styles.buttonText}>Set Repayment</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>QnA</Text>
+              <Text style={styles.buttonText}>Settings</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.button}>
               <Text style={styles.buttonText}>LogOut</Text>
@@ -100,7 +119,6 @@ const styles = StyleSheet.create({
   info: {
     fontSize: 18,
     marginTop: 10,
-    color: "#333",
   },
   buttonContainer: {
     width: "90%",
@@ -108,7 +126,7 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "#1E90FF",
-    padding: 15,
+    paddingVertical: 15,
     borderRadius: 10,
     marginTop: 10,
     alignItems: "center",
