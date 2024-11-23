@@ -2,14 +2,7 @@ import { useRoute } from "@react-navigation/native";
 import { CheckBox } from "@rneui/themed";
 import { useNavigation } from "expo-router";
 import React, { useEffect, useState } from "react";
-import {
-  Alert,
-  Button,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { Alert, ScrollView, StyleSheet, Text, View } from "react-native";
 
 export default function BankScreen() {
   const navigation = useNavigation();
@@ -78,12 +71,10 @@ export default function BankScreen() {
         </View>
 
         {/* Proceed Button */}
-        <View style={styles.button}>
-          <Button
-            title="Proceed with Loan Application"
-            onPress={handleProceed}
-            disabled={!agree}
-          />
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.button} onPress={() => {}}>
+            <Text style={styles.buttonText}>Proceed with Loan Application</Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </View>
@@ -122,9 +113,28 @@ const styles = StyleSheet.create({
   checkboxLabel: {
     fontSize: 16,
   },
+  buttonContainer: {
+    width: "100%",
+    alignItems: "center",
+    marginTop: 30,
+  },
   button: {
-    backgroundColor: "blue",
+    backgroundColor: "#1E90FF",
+    paddingVertical: 15,
+    paddingHorizontal: 40,
+    borderRadius: 25,
+    shadowColor: "#000",
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    elevation: 3,
+  },
+  buttonText: {
     color: "#fff",
-    borderRadius: 10,
+    fontSize: 18,
+    fontWeight: "bold",
   },
 });
